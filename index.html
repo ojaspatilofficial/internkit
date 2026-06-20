@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Internship Application Toolkit</title>
+  <meta name="description"
+    content="A simple dashboard that helps engineering students convert CGPA, track internship preparation, and manage deadlines in one place." />
+  <meta name="keywords"
+    content="internship, CGPA converter, student toolkit, checklist, deadline reminder, engineering students" />
+  <meta name="author" content="Ojas Patil" />
+  <meta property="og:title" content="Student Internship Application Toolkit" />
+  <meta property="og:description"
+    content="A smart dashboard built by Ojas Patil to help engineering students convert CGPA, track preparation, and manage deadlines." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ─── HEADER ───────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="8" fill="url(#grad1)" />
+            <path d="M7 14L11 18L21 8" stroke="white" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="grad1" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Intern<span class="brand-accent">Kit</span></span>
+          <span class="brand-tag">by Digital Heroes</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="btn-icon" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── HERO ──────────────────────────────────────────────────────── -->
+  <section class="hero container">
+    <div class="hero-badge">🎓 Student Productivity Tool</div>
+    <h1 class="hero-title">Student Internship<br /><span class="gradient-text">Application Toolkit</span></h1>
+    <p class="hero-subtitle">A smart dashboard that helps you convert CGPA, track internship preparation, and manage
+      deadlines — all in one place.</p>
+    <div class="hero-stats">
+      <div class="stat-pill">📊 CGPA Converter</div>
+      <div class="stat-pill">✅ Prep Checklist</div>
+      <div class="stat-pill">📅 Deadline Notes</div>
+    </div>
+  </section>
+
+  <!-- ─── MAIN DASHBOARD ────────────────────────────────────────────── -->
+  <main class="dashboard container" id="dashboard">
+
+    <!-- Card 1: CGPA Converter -->
+    <section class="card cgpa-card" id="cgpa-section" aria-labelledby="cgpa-heading">
+      <div class="card-header">
+        <div class="card-icon-wrap cgpa-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-title" id="cgpa-heading">CGPA → Percentage</h2>
+          <p class="card-subtitle">Convert your CGPA to percentage instantly</p>
+        </div>
+      </div>
+
+      <div class="cgpa-body">
+        <div class="input-group">
+          <label for="cgpaInput" class="input-label">Enter your CGPA</label>
+          <div class="input-row">
+            <input type="number" id="cgpaInput" class="text-input" placeholder="e.g. 8.5" min="0" max="10" step="0.01"
+              aria-describedby="cgpa-hint cgpa-error" />
+            <button id="convertBtn" class="btn btn-primary" onclick="convertCGPA()">Convert</button>
+          </div>
+          <span id="cgpa-hint" class="input-hint">Enter a value between 0.00 and 10.00</span>
+          <span id="cgpa-error" class="input-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <div id="cgpa-result" class="cgpa-result hidden" aria-live="polite">
+          <div class="result-display">
+            <span class="result-label">Your Percentage</span>
+            <span class="result-value" id="percentageOutput">—</span>
+          </div>
+          <div class="formula-box">
+            <span class="formula-title">Formula Used</span>
+            <code class="formula-code" id="formulaDisplay">Percentage = (CGPA × 9.5)</code>
+          </div>
+          <div class="grade-badge" id="gradeBadge"></div>
+        </div>
+
+        <div class="cgpa-scale">
+          <div class="scale-bar">
+            <div class="scale-fill" id="scaleFill" style="width: 0%"></div>
+          </div>
+          <div class="scale-labels">
+            <span>0</span><span>2.5</span><span>5</span><span>7.5</span><span>10</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Card 2: Checklist -->
+    <section class="card checklist-card" id="checklist-section" aria-labelledby="checklist-heading">
+      <div class="card-header">
+        <div class="card-icon-wrap checklist-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4" />
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-title" id="checklist-heading">Preparation Checklist</h2>
+          <p class="card-subtitle">Track your internship readiness</p>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-info">
+          <span class="progress-text" id="progressText">0 / 6 completed</span>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+          aria-label="Checklist progress">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <ul class="checklist" id="checklistItems" aria-label="Internship preparation checklist">
+        <!-- items injected by JS -->
+      </ul>
+
+      <div class="card-footer-actions">
+        <button id="copyChecklistBtn" class="btn btn-ghost btn-sm" onclick="copyChecklist()"
+          title="Copy checklist as text">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          Copy list
+        </button>
+        <button id="resetChecklistBtn" class="btn btn-ghost btn-sm btn-danger" onclick="resetChecklist()"
+          title="Clear all checkmarks">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10" />
+            <path d="M3.51 15a9 9 0 1 0 .49-3.11" />
+          </svg>
+          Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- Card 3: Notes / Deadlines -->
+    <section class="card notes-card" id="notes-section" aria-labelledby="notes-heading">
+      <div class="card-header">
+        <div class="card-icon-wrap notes-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+            <polyline points="10 9 9 9 8 9" />
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-title" id="notes-heading">Deadline Reminders</h2>
+          <p class="card-subtitle">Keep track of important dates &amp; notes</p>
+        </div>
+      </div>
+
+      <div class="notes-input-row">
+        <input type="text" id="noteInput" class="text-input" placeholder='e.g. "Apply by 19 June"' maxlength="120"
+          aria-label="Add a new reminder note" onkeydown="handleNoteKeydown(event)" />
+        <button id="addNoteBtn" class="btn btn-primary" onclick="addNote()">Add</button>
+      </div>
+
+      <ul class="notes-list" id="notesList" aria-label="Reminder notes" aria-live="polite">
+        <!-- items injected by JS -->
+      </ul>
+
+      <div id="notes-empty" class="notes-empty">
+        <span>📋</span>
+        <p>No reminders yet. Add one above!</p>
+      </div>
+
+      <div class="card-footer-actions">
+        <button id="clearAllNotesBtn" class="btn btn-ghost btn-sm btn-danger" onclick="clearAllNotes()"
+          title="Delete all notes">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+          </svg>
+          Clear all
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── READINESS SCORE BANNER ────────────────────────────────────── -->
+  <section class="score-banner container" id="readinessBanner">
+    <div class="score-card">
+      <div class="score-left">
+        <span class="score-label">🏆 Resume Readiness Score</span>
+        <p class="score-desc">Based on your checklist completion</p>
+      </div>
+      <div class="score-ring-wrap">
+        <svg class="score-ring" viewBox="0 0 60 60" aria-label="Readiness score ring">
+          <circle class="ring-bg" cx="30" cy="30" r="24" />
+          <circle class="ring-fill" cx="30" cy="30" r="24" id="ringFill" />
+        </svg>
+        <span class="score-number" id="scoreNumber">0%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner container">
+
+      <div class="footer-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="8" fill="url(#grad2)" />
+            <path d="M7 14L11 18L21 8" stroke="white" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <defs>
+              <linearGradient id="grad2" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366f1" />
+                <stop offset="1" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <p class="footer-tagline">Built as a student internship application helper</p>
+      </div>
+
+      <div class="footer-dev">
+        <p class="dev-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+          Ojas Sanjay Patil
+        </p>
+        <a href="mailto:ojaspatil.work@gmail.com" class="dev-email">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          ojaspatil.work@gmail.com
+        </a>
+      </div>
+
+      <div class="footer-cta">
+        <a href="https://digitalheroesco.com" target="_blank" rel="noopener noreferrer" id="digitalHeroesBtn"
+          class="btn btn-heroes" aria-label="Visit Digital Heroes website">
+          <span>🦸</span>
+          Built for Digital Heroes
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+        </a>
+        <p class="footer-credit">© 2026 Student Internship Application Toolkit</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
