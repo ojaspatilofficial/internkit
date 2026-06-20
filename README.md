@@ -3,11 +3,10 @@
 <img src="https://img.shields.io/badge/InternKit-Student%20Toolkit-6366f1?style=for-the-badge&logo=checkmarx&logoColor=white" alt="InternKit" />
 
 # 🎓 Student Internship Application Toolkit
-
+LIVE DEMO : (https://internkit.vercel.app/)
 **A clean, fast, and student-friendly dashboard to manage internship applications.**  
 Convert CGPA · Track preparation · Manage deadlines — all in one place.
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_App-6366f1?style=for-the-badge)]([](https://internkit.vercel.app/))
 [![Built for Digital Heroes](https://img.shields.io/badge/🦸_Built_for-Digital_Heroes-8b5cf6?style=for-the-badge)](https://digitalheroesco.com)
 [![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
